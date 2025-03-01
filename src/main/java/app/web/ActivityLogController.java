@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.UUID;
+
 import static app.web.mapper.DtoMapper.fromActivityLog;
 
 @RestController
@@ -29,5 +32,12 @@ public class ActivityLogController {
                 .body(activityLogResponse);
     }
 
-    
+    @GetMapping
+    public ResponseEntity<List<ActivityLogResponse>> getActivityLog(@RequestParam(name = "userId") UUID userId) {
+        List<ActivityLogResponse> activityLog = activityLogService.getAllByUserId(userId);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(activityLog);
+    }
 }
