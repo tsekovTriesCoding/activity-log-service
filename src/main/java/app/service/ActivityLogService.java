@@ -29,9 +29,21 @@ public class ActivityLogService {
         return activityLogRepository.save(log);
     }
 
-    public List<ActivityLogResponse> getAllByUserId(UUID userId) {
-        List<ActivityLog> logs = activityLogRepository.getAllByUserId(userId);
+    public List<ActivityLogResponse> getByUserId(UUID userId) {
+        List<ActivityLog> logs = activityLogRepository.findAllByUserIdAndIsDeletedIsFalse(userId);
 
         return logs.stream().map(DtoMapper::fromActivityLog).collect(Collectors.toList());
+    }
+
+    public boolean deleteByUserId(UUID userId) {
+        if (activityLogRepository.existsById(userId)) {
+            activityLogRepository.findAllByUserIdAndIsDeletedIsFalse(userId).forEach(activityLog -> {
+                activityLog.setDeleted(true);
+                activityLogRepository.save(activityLog);
+            });
+
+            return true;
+        }
+        return false;
     }
 }

@@ -34,10 +34,21 @@ public class ActivityLogController {
 
     @GetMapping
     public ResponseEntity<List<ActivityLogResponse>> getActivityLog(@RequestParam(name = "userId") UUID userId) {
-        List<ActivityLogResponse> activityLog = activityLogService.getAllByUserId(userId);
+        List<ActivityLogResponse> activityLog = activityLogService.getByUserId(userId);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(activityLog);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteActivityLog(@RequestParam(name = "userId") UUID userId) {
+        boolean deleted = activityLogService.deleteByUserId(userId);
+
+        if (deleted) {
+            return ResponseEntity.ok("Activity logs deleted for user: " + userId);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
