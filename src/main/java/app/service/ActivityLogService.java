@@ -36,8 +36,9 @@ public class ActivityLogService {
     }
 
     public boolean deleteByUserId(UUID userId) {
-        if (activityLogRepository.existsById(userId)) {
-            activityLogRepository.findAllByUserIdAndIsDeletedIsFalse(userId).forEach(activityLog -> {
+        if (activityLogRepository.existsByUserId(userId)) {
+            activityLogRepository.findAllByUserIdAndIsDeletedIsFalse(userId)
+                    .forEach(activityLog -> {
                 activityLog.setDeleted(true);
                 activityLogRepository.save(activityLog);
             });

@@ -11,5 +11,5 @@ import java.util.UUID;
 public interface ActivityLogRepository extends JpaRepository<ActivityLog, UUID> {
     List<ActivityLog> findAllByUserIdAndIsDeletedIsFalse(UUID userId);
 
-    void deleteAllByUserId(UUID userId);
+    boolean existsByUserId(UUID userId);
 }
