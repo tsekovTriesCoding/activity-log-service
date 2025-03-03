@@ -29,10 +29,8 @@ public class ActivityLogService {
         return activityLogRepository.save(log);
     }
 
-    public List<ActivityLogResponse> getByUserId(UUID userId) {
-        List<ActivityLog> logs = activityLogRepository.findAllByUserIdAndIsDeletedIsFalse(userId);
-
-        return logs.stream().map(DtoMapper::fromActivityLog).collect(Collectors.toList());
+    public List<ActivityLog> getByUserId(UUID userId) {
+      return activityLogRepository.findAllByUserIdAndIsDeletedIsFalse(userId);
     }
 
     public boolean deleteByUserId(UUID userId) {

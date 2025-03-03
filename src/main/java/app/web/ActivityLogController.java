@@ -4,6 +4,7 @@ import app.model.ActivityLog;
 import app.service.ActivityLogService;
 import app.web.dto.ActivityLogRequest;
 import app.web.dto.ActivityLogResponse;
+import app.web.mapper.DtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,11 +35,16 @@ public class ActivityLogController {
 
     @GetMapping
     public ResponseEntity<List<ActivityLogResponse>> getActivityLog(@RequestParam(name = "userId") UUID userId) {
-        List<ActivityLogResponse> activityLog = activityLogService.getByUserId(userId);
+        List<ActivityLog> activityLog = activityLogService.getByUserId(userId);
+
+        List<ActivityLogResponse> activityLogResponse = activityLog
+                .stream()
+                .map(DtoMapper::fromActivityLog)
+                .toList();
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(activityLog);
+                .body(activityLogResponse);
     }
 
     @DeleteMapping
