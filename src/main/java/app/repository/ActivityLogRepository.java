@@ -9,7 +9,9 @@ import java.util.UUID;
 
 @Repository
 public interface ActivityLogRepository extends JpaRepository<ActivityLog, UUID> {
-    List<ActivityLog> findAllByUserIdAndIsDeletedIsFalse(UUID userId);
+    List<ActivityLog> findAllByUserIdAndIsDeletedIsFalseOrderByCreatedOnDesc(UUID userId);
 
     boolean existsByUserId(UUID userId);
+
+    List<ActivityLog> findAllByUserIdAndIsDeletedIsFalse(UUID userId);
 }
