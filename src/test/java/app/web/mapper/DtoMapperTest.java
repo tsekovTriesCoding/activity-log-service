@@ -26,8 +26,8 @@ public class DtoMapperTest {
         ActivityLogResponse activityLogResponse = DtoMapper.fromActivityLog(activityLog);
 
         assertEquals(activityLogResponse.getUserId(), activityLog.getUserId());
-        assertEquals(activityLog.getAction(), activityLog.getAction());
-        assertEquals(activityLog.getCreatedOn(), activityLog.getCreatedOn());
-        assertEquals(activityLog.getCreatedOn(), activityLog.getCreatedOn());
+        assertEquals(activityLogResponse.getAction(), activityLog.getAction());
+        assertEquals(activityLogResponse.getCreatedOn(), activityLog.getCreatedOn());
+        assertEquals(activityLogResponse.getCreatedOn(), activityLog.getCreatedOn());
     }
 }
