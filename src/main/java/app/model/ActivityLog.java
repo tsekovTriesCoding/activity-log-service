@@ -20,7 +20,7 @@ public class ActivityLog {
     @Column(nullable = false)
     private UUID userId;
 
-    @Column(nullable = false)
+    @Column(length = 1000, nullable = false)
     private String action;
 
     @Column(nullable = false)
